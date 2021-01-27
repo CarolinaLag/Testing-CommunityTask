@@ -8,10 +8,10 @@ describe("Signup form", () => {
 
         cy.get("form");
 
-        cy.get('input[name="username"]').type("CoolUser").should("have.value", "CoolUser")
-        cy.get('input[name="email"]').type("email@live.se");
-        cy.get('input[name="password"]').type("123123123").should("have.value", "123123123")
-        cy.get('input[name="passwordConfirm"]').type("123123123").should("have.value", "123123123")
+        cy.get('input[name="username"]').type("CoolUser")
+        cy.get('input[name="email"]').type("email@live.se")
+        cy.get('input[name="password"]').type("123123123")
+        cy.get('input[name="passwordConfirm"]').type("123123123")
         
         cy.get("form").submit();
 
