@@ -3,37 +3,25 @@ describe("Guestbook form", () => {
     cy.visit("/guestbook");
     cy.get("textarea").type("Så");
     cy.get("form").submit();
-    cy.contains("För kort meddelande!").end();
+    cy.contains("För kort meddelande!");
   });
 
   it("Recieve message about being unable to post with too few letters when not typing anything at all", () => {
+    cy.visit("/guestbook");
     cy.get("form").submit();
-    cy.contains("För kort meddelande!").end();
+    cy.contains("För kort meddelande!");
   });
 
   it("Make a post", () => {
+    cy.visit("/guestbook");
     cy.get("textarea").type("Hej");
     cy.get("form").submit();
-    cy.contains("Hej").end();
+    cy.contains("Hej");
+    cy.window().its("localStorage").invoke("getItem", "guestbook").should("exist");
   });
 
-  it("Make a several posts and remove last post", () => {
-    let numberOfLoops = 5;
-
-    while (numberOfLoops > 0) {
-      cy.get("textarea").type("Post nr" + numberOfLoops);
-      cy.get("form").submit();
-      cy.contains("Post nr" + numberOfLoops);
-      numberOfLoops--;
-    }
-
-    cy.get('a[onclick="removeEntry(4);"]').click();
-    cy.get('a[onclick="removeEntry(4);"]').should("not.exist");
-
-    cy.end();
-  });
-
-  it("Make a several posts and remove a post", () => {
+  it("Make a several posts and remove last post and post nr 2", () => {
+    cy.visit("/guestbook");
     let numberOfPosts = 0;
 
     while (numberOfPosts < 5) {
@@ -43,13 +31,21 @@ describe("Guestbook form", () => {
       numberOfPosts++;
     }
 
-    cy.get('a[onclick="removeEntry(0);"]').click();
+    cy.window().its("localStorage").invoke("getItem", "guestbook").should('contain', 4);
+
+    cy.get('a[onclick="removeEntry(4);"]').click();
     cy.get('a[onclick="removeEntry(4);"]').should("not.exist");
 
-    cy.end();
+    cy.window().its("localStorage").invoke("getItem", "guestbook").should('not.contain', 4);
+
+    cy.get('a[onclick="removeEntry(1);"]').click();
+    cy.get('a[onclick*="removeEntry"]').should("have.length", numberOfPosts - 2);
+
+    cy.window().its("localStorage").invoke("getItem", "guestbook").should('not.contain', 1);
   });
 
-  it("Make a several posts and remove all posts", () => {
+  it("Make a several posts and remove all of them", () => {
+    cy.visit("/guestbook");
     let numberOfPosts = 0;
     let numberToDelete = 5;
 
@@ -66,6 +62,6 @@ describe("Guestbook form", () => {
       numberToDelete--;
     }
 
-    cy.end();
+    cy.window().its("localStorage").invoke("getItem", "guestbook").should("contain", "");
   });
 });
