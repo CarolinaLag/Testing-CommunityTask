@@ -3,13 +3,13 @@ describe("Guestbook form", () => {
     cy.visit("/guestbook");
     cy.get("textarea").type("Så");
     cy.get("form").submit();
-    cy.contains("För kort meddelande!").end();
+    cy.contains("För kort meddelande!");
   });
 
   it("Recieve message about being unable to post with too few letters when not typing anything at all", () => {
     cy.visit("/guestbook");
     cy.get("form").submit();
-    cy.contains("För kort meddelande!").end();
+    cy.contains("För kort meddelande!");
   });
 
   it("Make a post", () => {
@@ -18,7 +18,6 @@ describe("Guestbook form", () => {
     cy.get("form").submit();
     cy.contains("Hej");
     cy.window().its("localStorage").invoke("getItem", "guestbook").should("exist");
-    cy.end();
   });
 
   it("Make a several posts and remove last post and post nr 2", () => {
@@ -43,8 +42,6 @@ describe("Guestbook form", () => {
     cy.get('a[onclick*="removeEntry"]').should("have.length", numberOfPosts - 2);
 
     cy.window().its("localStorage").invoke("getItem", "guestbook").should('not.contain', 1);
-
-    cy.end();
   });
 
   it("Make a several posts and remove all of them", () => {
@@ -66,12 +63,5 @@ describe("Guestbook form", () => {
     }
 
     cy.window().its("localStorage").invoke("getItem", "guestbook").should("contain", "");
-
-    cy.end();
-  });
-
-  it("Be able to go back to start page", ()=> {
-    cy.visit("/guestbook");
-    cy.get('a[href="start.html"]').click();
   });
 });
