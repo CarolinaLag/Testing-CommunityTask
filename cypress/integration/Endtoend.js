@@ -41,19 +41,27 @@ describe("e2e", () => {
         
         })
 
+    })
+
     it("Can go to Guestbook", () => {
 
         cy.visit("start");
             
         cy.contains("a", "Gästbok");
+
+        cy.get("a[href='guestbook.html']").click();
+        cy.contains("Gästbok!");
     
     })
 
-    it("Can go back Guestbook", () => {
+    it("Can go back link Guestbook", () => {
 
         cy.visit("guestbook");
             
         cy.contains("a", "Tillbaka");
+
+        cy.get('a[href="start.html"]').click();
+        cy.contains("Välkommen");
     
     })
 
@@ -61,8 +69,10 @@ describe("e2e", () => {
 
         cy.visit("start");
             
-                    cy.contains("a", "Presentation");
-       
+        cy.contains("a", "Presentation");
+
+        cy.get("a[href='presentation.html']").click();
+        cy.contains("Prentation!");
     
     })
 
@@ -70,8 +80,10 @@ describe("e2e", () => {
 
         cy.visit("presentation");
             
-                    cy.contains("a", "Tillbaka");
-       
+        cy.contains("a", "Tillbaka");
+
+        cy.get('a[href="start.html"]').click();
+        cy.contains("Välkommen");
     
     })
 
@@ -79,9 +91,9 @@ describe("e2e", () => {
 
         cy.visit("start");
             
-                    cy.contains("a", "Logga ut");
+        cy.contains("a", "Logga ut");
        
-    
+        
     })
 
     
