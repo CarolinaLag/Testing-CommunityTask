@@ -128,5 +128,13 @@ describe("Signup form", () => {
             
                 })
 
+                it("Check Sign in link", () => {
+
+                    cy.visit("register?%3Cmarquee%3EAnv%C3%A4daren%20registrerad!%20%3Ca%20href=%27/%27%3ELogga%20in%20h%C3%A4r!%3C/a%3E%3C/marquee%3E");
+            
+                    cy.contains("a", "Logga in här!");
+                
+                })
+
    
 } )
