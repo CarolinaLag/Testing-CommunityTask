@@ -26,8 +26,10 @@ describe("Guestbook form", ()=> {
     });
 
     it("Remove first post", ()=> {
+        // cy.get("textarea").type("Hej");
+        // cy.get("form").submit();
         cy.get('a[onclick="removeEntry(0);"]').click();
-        cy.get('a[onclick="removeEntry(0);"]').should('not.exist');
+        // cy.get('a[onclick="removeEntry(0);"]').should('not.exist'); Om det funnits 5 inlägg borde ett annat inlägg få plats 0
         cy.end();
     });
 });
