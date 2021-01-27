@@ -18,6 +18,16 @@ describe("Check Start links", () => {
     
     })
 
+    
+    it("Check go back link", () => {
+
+        cy.visit("presentation");
+            
+                    cy.contains("a", "Tillbaka");
+       
+    
+    })
+
     it("Check log out link", () => {
 
         cy.visit("start");
@@ -27,13 +37,5 @@ describe("Check Start links", () => {
     
     })
 
-    it("Check go back link", () => {
-
-        cy.visit("presentation");
-            
-                    cy.contains("a", "Tillbaka");
-       
-    
-    })
 
 } )
